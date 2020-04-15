@@ -28,23 +28,24 @@
 			</fieldset>
 		</h:form>
 		
-		<h:form id="formTabelaLivros">
-			<h:dataTable value="#{livroBean.livros}" var="livro"
-				id="tabelaLivros">
+		<h:form id="formTabelaAutores">
+			<h:dataTable value="#{autorBean.autores}" var="autor"
+				id="tabelaAutores">
 				<h:column>
-					<f:facet name="header">Titulo</f:facet>
-					<h:outputText value="#{livro.titulo}" />
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{autor.nome}" />
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Alterar</f:facet>
-					<h:commandLink value="Altera" action="#{livroBean.carregar(livro)}" />
+					<h:commandLink value="Altera" action="#{autorBean.carregar(autor)}" />
 				</h:column>
 				
 				<h:column>
-					<f:facet name="header">Remover</f:facet>
-					<h:commandLink value="remove" action="#{livroBean.remover(livro)}" />
-				</h:column>
+						<f:facet name="header">Remover</f:facet>
+						<h:commandLink value="remove" action="#{autorBean.remover(autor)}"/>
+					</h:column>
+					
 				</h:dataTable>
 				</h:form>
 		
