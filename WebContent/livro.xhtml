@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">
+			Novo Livro
+		</ui:define>
+	<ui:define name="conteudo">
+
+		<h:body>
+			<h:form>
+
+				<h:messages id="messages" />
+				<fieldset>
+					<legend>Dados do Livro</legend>
+					<h:panelGrid columns="2">
+
+						<h:outputLabel value="Titulo:" for="titulo" />
+						<h:inputText id="titulo" value="#{livroBean.livro.titulo}"
+							required="true" requiredMessage="Título Obrigatório"
+							validatorMessage="tpitulo não pode ser superior a 40">
+							<f:validateLength maximum="40" />
+							<f:ajax event="blur" render="messages" />
+						</h:inputText>
+
+						<h:outputLabel value="ISBN:" for="isbn" />
+						<h:inputText id="isbn" value="#{livroBean.livro.isbn}"
+							validator="#{livroBean.comecaComDigitoUm}" />
+
+						<h:outputLabel value="Preço:" for="preco" />
+						<h:inputText id="preco" value="#{livroBean.livro.preco}" />
+
+						<h:outputLabel value="Data de Lançamento:" for="dataLancamento" />
+						<h:inputText id="dataLancamento"
+							value="#{livroBean.livro.dataLancamento.time}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:inputText>
+
+					</h:panelGrid>
+				</fieldset>
+
+				<fieldset>
+					<legend>Dados do Autor</legend>
+
+					<h:outputLabel value="Selecione Autor:" for="autor" />
+					<h:selectOneMenu value="#{livroBean.autorId}" id="autor">
+						<f:selectItems value="#{livroBean.autores}" var="autor"
+							itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
+					</h:selectOneMenu>
+					<h:commandButton value="Gravar Autor"
+						action="#{livroBean.gravarAutor}">
+						<f:ajax execute="autor" render="tabelaAutores" />
+						<!-- REQUISICÕES AJAX SUBMETE APENAS UMA PARTE DO FORMULÁRIO, PASSANDO OS IDS QUE QUER ENVIAR NA REQUISIÇÃO -->
+					</h:commandButton>
+
+					<br />
+
+					<h:commandLink value="Cadastrar Novo Autor"
+						action="#{livroBean.formAutor}" immediate="true" />
+					<!-- immediate faz ir para página, pulando os processos -->
+
+
+					<h:dataTable value="#{livroBean.autoresDoLivro}" var="autor"
+						id="tabelaAutores">
+						<h:column>
+							<h:outputText value="#{autor.nome}" />
+						</h:column>
+						
+						<h:column>
+						<h:commandLink value="X" action="#{livroBean.removerAutorDoLivro(autor)}" />
+						</h:column>
+						
+					</h:dataTable>
+				</fieldset>
+				
+				<h:commandButton value="Gravar" action="#{livroBean.gravar}">
+					<f:ajax execute="@form" render="@form :formTabelaLivros:tabelaLivros" />
+					<!-- @form envia todo o formulário, mas também temos: @all - envia a página inteira, @this e @none -->
+				</h:commandButton>
+			</h:form>
+			
+			<h:form id="formTabelaLivros">
+			<h:dataTable value="#{livroBean.livros}" var="livro"
+				id="tabelaLivros">
+				<h:column>
+					<f:facet name="header">Titulo</f:facet>
+					<h:outputText value="#{livro.titulo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">ISBN</f:facet>
+					<h:outputText value="#{livro.isbn}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Preço</f:facet>
+					<h:outputText value="#{livro.preco}">
+						<f:convertNumber type="currency" pattern="R$ #0.00"
+							currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Alterar</f:facet>
+					<h:commandLink value="Altera" action="#{livroBean.carregar(livro)}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Remover</f:facet>
+					<h:commandLink value="remove" action="#{livroBean.remover(livro)}" />
+				</h:column>
+				
+			</h:dataTable>
+		</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>
+
+</html>
