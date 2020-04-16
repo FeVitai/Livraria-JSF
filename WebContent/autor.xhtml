@@ -7,6 +7,12 @@
 
 <ui:composition template="_template.xhtml">
 
+	<f:metadata>
+		<f:viewParam name="autorId" value="#{autorBean.autorId}" />
+		<f:viewAction action="#{autorBean.carregarAutorPelaId}"
+			if="#{param.autorId != null}" />
+	</f:metadata>
+
 	<ui:define name="titulo">
 		Novo Autor
 	</ui:define>
@@ -21,13 +27,21 @@
 					<h:inputText id="nome" value="#{autorBean.autor.nome}"
 						required="true">
 						<f:validateLength minimum="5" />
+						<f:ajax event="blur" render="messageNome" />
 					</h:inputText>
-					<h:message for="nome" />
+					<h:message for="nome" id="messageNome"/>
+
+					<h:outputLabel value="Email: " for="email" />
+					<h:inputText id="email" value="#{autorBean.autor.email}" required="true" >
+						<f:passThroughAttribute name="type" value="email" /> <!-- O passThroughAttribute renderiza os atributos de HTML5 -->
+					</h:inputText>
+					<h:message for="email" id="messageEmail"/>
+					
 					<h:commandButton value="Gravar" action="#{autorBean.gravar}" />
 				</h:panelGrid>
 			</fieldset>
 		</h:form>
-		
+
 		<h:form id="formTabelaAutores">
 			<h:dataTable value="#{autorBean.autores}" var="autor"
 				id="tabelaAutores">
@@ -37,21 +51,23 @@
 				</h:column>
 				
 				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{autor.email}" />
+				</h:column>
+
+				<h:column>
 					<f:facet name="header">Alterar</f:facet>
 					<h:commandLink value="Altera" action="#{autorBean.carregar(autor)}" />
 				</h:column>
-				
+
 				<h:column>
-						<f:facet name="header">Remover</f:facet>
-						<h:commandLink value="remove" action="#{autorBean.remover(autor)}"/>
-					</h:column>
-					
-				</h:dataTable>
-				</h:form>
-		
-		<ui:define name="texto">
-  Cadastro de Autores
-</ui:define>
+					<f:facet name="header">Remover</f:facet>
+					<h:commandLink value="remove" action="#{autorBean.remover(autor)}" />
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>

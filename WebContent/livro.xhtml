@@ -6,6 +6,13 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="livroId" value="#{livroBean.livroId}" />
+		<f:viewAction action="#{livroBean.carregarLivroPelaId}"
+			if="#{param.livroId != null}" />
+	</f:metadata>
+
 	<ui:define name="titulo">
 			Novo Livro
 		</ui:define>

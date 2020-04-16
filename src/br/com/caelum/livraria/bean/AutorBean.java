@@ -1,6 +1,5 @@
 package br.com.caelum.livraria.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -9,18 +8,15 @@ import javax.faces.bean.ViewScoped;
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.util.ForwardView;
+
 @ViewScoped
 @ManagedBean
-public class AutorBean implements Serializable {
+public class AutorBean {
 
-	private static final long serialVersionUID = 1L;
-
+	private Integer autorId;
+	
 	private Autor autor = new Autor();
 
-	public Autor getAutor() {
-		return autor;
-	}
-	
 	public List<Autor> getAutores() {
 		return new DAO<Autor>(Autor.class).listaTodos();
 	}
@@ -48,10 +44,27 @@ public class AutorBean implements Serializable {
 		System.out.println("Carregando autor");
 		this.autor = autor;
 	}
+	
+	public void carregarAutorPelaId() {
+		this.autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+	}
+	
+	//GETTERS AND SETTERS
+	
+	public Autor getAutor() {
+		return autor;
+	}
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
-	
+
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
 	
 }
