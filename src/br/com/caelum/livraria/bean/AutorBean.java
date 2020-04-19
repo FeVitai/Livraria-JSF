@@ -21,7 +21,7 @@ public class AutorBean {
 		return new DAO<Autor>(Autor.class).listaTodos();
 	}
 
-	public ForwardView gravar() {
+	public String gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
 		
 		if(this.autor.getNome() == null) {
@@ -32,7 +32,7 @@ public class AutorBean {
 		
 		this.autor = new Autor();
 		
-		return new ForwardView("livro");
+		return "livro?faces-redirect=true";
 	}
 	
 	public void remover(Autor autor) {
