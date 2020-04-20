@@ -15,7 +15,6 @@ import br.com.caelum.livraria.util.ForwardView;
 
 @ViewScoped
 @ManagedBean
-public class AutorBean {
 public class AutorBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
