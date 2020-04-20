@@ -7,32 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-<<<<<<< HEAD
-=======
 
-public class Autor {
->>>>>>> master
-
-public class Autor implements Serializable {
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private String nome;
 	private String email;
+	private String senha;
 
 	//GETTERS AND SETTERS
 	
-	public String getNome() {
-		return nome ;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +34,14 @@ public class Autor implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 }

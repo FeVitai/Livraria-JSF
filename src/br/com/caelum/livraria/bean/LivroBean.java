@@ -23,18 +23,7 @@ public class LivroBean implements Serializable {
 	private Livro livro = new Livro();
 
 	private Integer autorId;
-
-	public void setAutorId(Integer autorId) {
-		this.autorId = autorId;
-	}
-
-	public Integer getAutorId() {
-		return autorId;
-	}
-
-	public Livro getLivro() {
-		return livro;
-	}
+	private Integer livroId;
 
 	public List<Livro> getLivros() {
 		return new DAO<Livro>(Livro.class).listaTodos();
@@ -101,4 +90,35 @@ public class LivroBean implements Serializable {
 		}
 
 	}
+	
+	public void carregarLivroPelaId() {
+		this.livro = new DAO<Livro>(Livro.class).buscaPorId(livroId);
+	}
+	
+	//GETTERS AND SETTERS
+	
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
+
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public Integer getLivroId() {
+		return livroId;
+	}
+
+	public void setLivroId(Integer livroId) {
+		this.livroId = livroId;
+	}
+
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	
 }
