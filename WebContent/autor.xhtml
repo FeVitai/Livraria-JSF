@@ -41,7 +41,11 @@
 				</h:panelGrid>
 			</fieldset>
 		</h:form>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> master
 		<h:form id="formTabelaAutores">
 			<h:dataTable value="#{autorBean.autores}" var="autor"
 				id="tabelaAutores">
@@ -61,6 +65,7 @@
 				</h:column>
 
 				<h:column>
+<<<<<<< HEAD
 					<f:facet name="header">Remover</f:facet>
 					<h:commandLink value="remove" action="#{autorBean.remover(autor)}" />
 				</h:column>
@@ -68,6 +73,18 @@
 			</h:dataTable>
 		</h:form>
 
+=======
+						<f:facet name="header">Remover</f:facet>
+						<h:commandLink value="remove" action="#{autorBean.remover(autor)}"/>
+					</h:column>
+					
+				</h:dataTable>
+				</h:form>
+		
+		<ui:define name="texto">
+  Cadastro de Autores
+</ui:define>
+>>>>>>> master
 	</ui:define>
 </ui:composition>
 </html>

@@ -1,5 +1,9 @@
 package br.com.caelum.livraria.bean;
 
+<<<<<<< HEAD
+=======
+import java.io.Serializable;
+>>>>>>> master
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -12,6 +16,9 @@ import br.com.caelum.livraria.util.ForwardView;
 @ViewScoped
 @ManagedBean
 public class AutorBean {
+public class AutorBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Integer autorId;
 	
@@ -54,7 +61,12 @@ public class AutorBean {
 	public Autor getAutor() {
 		return autor;
 	}
+	
+	public List<Autor> getAutores() {
+		return new DAO<Autor>(Autor.class).listaTodos();
+	}
 
+<<<<<<< HEAD
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
@@ -67,4 +79,35 @@ public class AutorBean {
 		this.autorId = autorId;
 	}
 	
+=======
+	public ForwardView gravar() {
+		System.out.println("Gravando autor " + this.autor.getNome());
+		
+		if(this.autor.getNome() == null) {
+			new DAO<Autor>(Autor.class).adiciona(this.autor);
+		} else {
+			new DAO<Autor>(Autor.class).atualiza(this.autor);
+		}
+		
+		this.autor = new Autor();
+		
+		return new ForwardView("livro");
+	}
+	
+	public void remover(Autor autor) {
+		System.out.println("Removendo autor");
+		new DAO<Autor>(Autor.class).remove(autor);
+	}
+	
+	public void carregar(Autor autor) {
+		System.out.println("Carregando autor");
+		this.autor = autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+	
+	
+>>>>>>> master
 }

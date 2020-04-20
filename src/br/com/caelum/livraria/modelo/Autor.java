@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+<<<<<<< HEAD
+=======
+
+public class Autor {
+>>>>>>> master
 
 public class Autor implements Serializable {
 
